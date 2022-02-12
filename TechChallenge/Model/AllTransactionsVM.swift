@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-// All transactions
+// MARK: - All transactions
 class AllTransactionsVM: ObservableObject {
 
     @Published var transactions: [TransactionVM] = []   //For category selected
@@ -16,20 +16,7 @@ class AllTransactionsVM: ObservableObject {
     // Verified in testFilterTransactionsByCategory
     @Published var categorySelected = "" {
         didSet {
-            if categorySelected == Constants.all {
-                transactions = ModelData.sampleTransactions.map({ model in
-                    let pinned = !unpinned.contains(model.id)
-                    return TransactionVM(model, isPinned: pinned)
-                })
-            } else {
-                transactions = ModelData.sampleTransactions.compactMap({ model in
-                    if model.category.rawValue == categorySelected {
-                        let pinned = !unpinned.contains(model.id)
-                        return TransactionVM(model, isPinned: pinned)
-                    }
-                    return nil
-                })
-            }
+            transactions = getAllTransactions(for: categorySelected)
             calcCategoryTotal()
         }
     }
@@ -52,7 +39,11 @@ class AllTransactionsVM: ObservableObject {
         }
         calcCategoryTotal()
     }
-    
+}
+
+// MARK: - Support for calculations
+extension AllTransactionsVM {
+
     private func calcCategoryTotal() {
         let total = calcPinnedTotal().formatted()
         categoryTotal = "$\(total)"
@@ -64,15 +55,7 @@ class AllTransactionsVM: ObservableObject {
     }
 
     private func calcTotal(for category: String) -> Double {
-        let txs: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
-            if model.category.rawValue == category {
-                let pinned = !unpinned.contains(model.id)
-                if pinned {
-                    return TransactionVM(model)
-                }
-            }
-            return nil
-        })
+        let txs = getAllPinnedTransactions(for: category)
         let t = txs.reduce(0, { $0 + $1.transaction.amount })
         return round(100*t)/100
     }
@@ -89,19 +72,63 @@ class AllTransactionsVM: ObservableObject {
     
     // Verified in testUnpinnedTransactionsTotalByCategory
     func calcAllTotals() -> Double {
-        let txs: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
+        let txs = getAllPinnedTransactions()
+        let t = txs.reduce(0, { $0 + $1.transaction.amount })
+        return round(100*t)/100
+    }
+}
+
+// MARK: - Support for getting transactions
+extension AllTransactionsVM {
+    
+    private func getAllTransactions() -> [TransactionVM] {
+        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
+            let pinned = !unpinned.contains(model.id)
+            return TransactionVM(model, isPinned: pinned)
+        })
+        return results
+    }
+
+    func getAllPinnedTransactions() -> [TransactionVM] {
+        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
             let pinned = !unpinned.contains(model.id)
             if pinned {
                 return TransactionVM(model)
             }
             return nil
         })
-        let t = txs.reduce(0, { $0 + $1.transaction.amount })
-        return round(100*t)/100
+        return results
+    }
+    
+    func getAllTransactions(for category: String) -> [TransactionVM] {
+        if category == Constants.all {
+            return getAllTransactions()
+        }
+        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
+            if model.category.rawValue == category {
+                let pinned = !unpinned.contains(model.id)
+                return TransactionVM(model, isPinned: pinned)
+            }
+            return nil
+        })
+        return results
+    }
+
+    func getAllPinnedTransactions(for category: String) -> [TransactionVM] {
+        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
+            if model.category.rawValue == category {
+                let pinned = !unpinned.contains(model.id)
+                if pinned {
+                    return TransactionVM(model)
+                }
+            }
+            return nil
+        })
+        return results
     }
 }
 
-// Insights
+// MARK: - Support for Insights
 extension AllTransactionsVM {
 
     struct GraphPoint {
