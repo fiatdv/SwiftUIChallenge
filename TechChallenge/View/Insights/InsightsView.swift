@@ -22,7 +22,7 @@ struct InsightsView: View {
                         .font(.headline)
                         .foregroundColor(category.color)
                     Spacer()
-                    Text(avm.calcTotalStr(category.rawValue))
+                    Text(avm.calcTotalPriceForCategory(category.rawValue))
                         .bold()
                         .secondary()
                 }
