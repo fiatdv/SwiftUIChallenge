@@ -13,7 +13,7 @@ struct DimmingButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(maxHeight: 36)
+            .frame(maxHeight: 46)
             .background(category.color)
             .opacity(configuration.isPressed ? 0.3 : 1.0)
             .foregroundColor(.white)

@@ -36,33 +36,6 @@ extension Text {
     }
 }
 
-// MARK: - ViewModifiers
-
-struct Title: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(Font.system(.body))
-            .foregroundColor(.accentColor)
-    }
-}
-
-struct TitleBold: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(Font.system(.body).bold())
-            .foregroundColor(.accentColor)
-    }
-}
-
-struct Headline: ViewModifier {
-    let color: Color
-    func body(content: Content) -> some View {
-        content
-            .font(Font.system(.headline))
-            .foregroundColor(color)
-    }
-}
-
 // MARK: - NavigationBarModifier
 
 struct NavigationBarModifier: ViewModifier {

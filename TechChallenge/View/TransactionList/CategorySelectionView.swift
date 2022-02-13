@@ -13,7 +13,7 @@ struct CategorySelectionView: View {
     
     var body: some View {
         ScrollView(.horizontal) {
-            LazyHGrid(rows: gridItems, spacing: 12) {
+            LazyHGrid(rows: gridItems, spacing: 10) {
                 ForEach(TransactionModel.Category.allCases, id: \.self) { category in
                     Button(category.rawValue) {
                         avm.categorySelected = category
@@ -21,8 +21,8 @@ struct CategorySelectionView: View {
                     .buttonStyle(DimmingButton(category: category))
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: 60)
-            .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
+            .frame(maxWidth: .infinity, maxHeight: 76)
+            .padding(EdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 18))
         }
         .background(Color.accentColor.opacity(0.8))
     }
