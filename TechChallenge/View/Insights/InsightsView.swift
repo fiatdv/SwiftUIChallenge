@@ -16,13 +16,13 @@ struct InsightsView: View {
             RingView(transactions: transactions)
                 .scaledToFit()
             
-            ForEach(TransactionModel.Category.allCases) { category in
+            ForEach(TransactionModel.Category.items) { category in
                 HStack {
                     Text(category.rawValue)
                         .font(.headline)
                         .foregroundColor(category.color)
                     Spacer()
-                    Text(avm.calcTotalPriceForCategory(category.rawValue))
+                    Text(avm.calcTotalPriceForCategory(category))
                         .bold()
                         .secondary()
                 }

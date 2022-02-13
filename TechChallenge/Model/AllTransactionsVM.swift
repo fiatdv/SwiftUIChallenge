@@ -11,12 +11,14 @@ import SwiftUI
 // MARK: - All transactions
 class AllTransactionsVM: ObservableObject {
 
-    @Published var transactions: [TransactionVM] = []   //For category selected
+    typealias Category = TransactionModel.Category
+
+    @Published var transactions: [TransactionModel] = []   //For category selected
 
     // Verified in testFilterTransactionsByCategory
-    @Published var categorySelected = "" {
+    @Published var categorySelected = Category.all {
         didSet {
-            transactions = getAllTransactions(for: categorySelected)
+            transactions = categorySelected.getAllTransactions()
             calcTotalPriceForCategorySelected()
         }
     }
@@ -25,28 +27,26 @@ class AllTransactionsVM: ObservableObject {
     
     @Published var graphPoints = [GraphPoint]()          // Insights
     
-    private var unpinned = Set<Int>()                    // Holds all unpinned ids
-
     init() {
-        categorySelected = Constants.all
+        categorySelected = Category.all
     }
     
-    func pinTransaction(id: Int, isPinned: Bool) {
-        if isPinned {
-            unpinned.remove(id)
-        } else {
-            unpinned.insert(id)
-        }
+    func pinTransaction() {
         calcTotalPriceForCategorySelected()
+    }
+
+    func pinTransaction(id: Int, isPinned: Bool) {
+        let trx = ModelData.sampleTransactions.first(where: { id == $0.id })
+        trx?.isPinned = isPinned
     }
 }
 
 // MARK: - Support for calculations
 extension AllTransactionsVM {
 
-    private func calcTotal(for category: String) -> Double {
-        let txs = getAllPinnedTransactions(for: category)
-        let t = txs.reduce(0, { $0 + $1.transaction.amount })
+    private func calcTotal(for category: Category) -> Double {
+        let txs = category.getAllPinnedTransactions()
+        let t = txs.reduce(0, { $0 + $1.amount })
         return round(100*t)/100
     }
     
@@ -59,67 +59,14 @@ extension AllTransactionsVM {
          categoryTotal = calcTotalPriceForCategory(categorySelected)
     }
     
-     func calcTotalPriceForCategory(_ category: String) -> String {
+    func calcTotalPriceForCategory(_ category: Category) -> String {
         let total = calcTotal(for: category)
         return "$\(total.formatted())"
     }
     
    // Verified in testUnpinnedTransactionsTotalByCategory
     func calcTotalAllCategories() -> Double {
-        calcTotal(for: Constants.all)
-    }
-}
-
-// MARK: - Support for getting transactions
-extension AllTransactionsVM {
-    
-    private func getAllTransactions() -> [TransactionVM] {
-        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
-            let pinned = !unpinned.contains(model.id)
-            return TransactionVM(model, isPinned: pinned)
-        })
-        return results
-    }
-
-    private func getAllPinnedTransactions() -> [TransactionVM] {
-        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
-            let pinned = !unpinned.contains(model.id)
-            if pinned {
-                return TransactionVM(model)
-            }
-            return nil
-        })
-        return results
-    }
-    
-    func getAllTransactions(for category: String) -> [TransactionVM] {
-        if category == Constants.all {
-            return getAllTransactions()
-        }
-        let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
-            if model.category.rawValue == category {
-                let pinned = !unpinned.contains(model.id)
-                return TransactionVM(model, isPinned: pinned)
-            }
-            return nil
-        })
-        return results
-    }
-
-    func getAllPinnedTransactions(for category: String) -> [TransactionVM] {
-        if category == Constants.all {
-            return getAllPinnedTransactions()
-        }
-         let results: [TransactionVM] = ModelData.sampleTransactions.compactMap({ model in
-            if model.category.rawValue == category {
-                let pinned = !unpinned.contains(model.id)
-                if pinned {
-                    return TransactionVM(model)
-                }
-            }
-            return nil
-        })
-        return results
+        calcTotal(for: Category.all)
     }
 }
 
@@ -138,7 +85,7 @@ extension AllTransactionsVM {
         var data = [GraphPoint]()
 
         _ = TransactionModel.Category.allCases.map { category in
-            let catTotal = calcTotal(for: category.rawValue)
+            let catTotal = calcTotal(for: category)
             let angle = catTotal/allTotal
             let point = GraphPoint(category: category.rawValue, offset: currAngle, ratio: angle)
             data.append(point)

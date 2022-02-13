@@ -14,8 +14,8 @@ struct TransactionTotalsView: View {
         VStack(spacing: 0) {
             HStack {
                 Spacer()
-                Text(avm.categorySelected)
-                    .modifier(Headline(color: ExpenseModel.backgroundColor(avm.categorySelected)))
+                Text(avm.categorySelected.rawValue)
+                    .modifier(Headline(color:avm.categorySelected.background))
             }
             HStack {
                 Text("Total spent:")

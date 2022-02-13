@@ -10,13 +10,30 @@ import SwiftUI
 
 // MARK: - TransactionModel
 
-struct TransactionModel {
+class TransactionModel: ObservableObject {
+    
+    @Published var isPinned: Bool
+
+    init(id: Int, name: String, category: TransactionModel.Category, amount: Double, date: Date, accountName: String, provider: TransactionModel.Provider?, pinned: Bool = true) {
+        self.id = id
+        self.name = name
+        self.category = category
+        self.amount = amount
+        self.date = date
+        self.accountName = accountName
+        self.provider = provider
+        self.isPinned = pinned
+    }
+    
     enum Category: String, CaseIterable {
+        case all
         case food
         case health
         case entertainment
         case shopping
         case travel
+    
+        static let items: [Category] = [.food, .health, .entertainment, .shopping, .travel]
     }
     
     enum Provider: String {
@@ -64,6 +81,8 @@ extension TransactionModel.Category: Identifiable {
             return .blue
         case .travel:
             return .purple
+        case .all:
+            return .black
         }
     }
 }

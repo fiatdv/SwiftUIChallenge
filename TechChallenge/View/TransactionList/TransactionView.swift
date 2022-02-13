@@ -10,20 +10,20 @@ import SwiftUI
 
 struct TransactionView: View {
     @EnvironmentObject var avm: AllTransactionsVM
-    @ObservedObject var vm: TransactionVM
+    @ObservedObject var vm: TransactionModel
 
     var body: some View {
         VStack {
             HStack {
-                Text(vm.transaction.category.rawValue)
+                Text(vm.category.rawValue)
                     .font(.headline)
-                    .foregroundColor(vm.transaction.category.color)
+                    .foregroundColor(vm.category.color)
                 Spacer()
-                Image(systemName: vm.pinned ? "pin.fill" : "pin.slash.fill")
+                Image(systemName: vm.isPinned ? "pin.fill" : "pin.slash.fill")
             }
-            if vm.pinned {
+            if vm.isPinned {
                 HStack {
-                    vm.transaction.image
+                    vm.image
                         .resizable()
                         .frame(
                             width: 60.0,
@@ -32,19 +32,19 @@ struct TransactionView: View {
                         )
                     
                     VStack(alignment: .leading) {
-                        Text(vm.transaction.name)
+                        Text(vm.name)
                             .secondary()
-                        Text(vm.transaction.accountName)
+                        Text(vm.accountName)
                             .tertiary()
                     }
                     
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text("$\(vm.transaction.amount.formatted())")
+                        Text("$\(vm.amount.formatted())")
                             .bold()
                             .secondary()
-                        Text(vm.transaction.date.formatted)
+                        Text(vm.date.formatted)
                             .tertiary()
                     }
                 }
@@ -54,8 +54,8 @@ struct TransactionView: View {
         .background(Color.accentColor.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 8.0))
         .onTapGesture {
-            vm.pinned.toggle()
-            avm.pinTransaction(id: vm.transaction.id, isPinned: vm.pinned)
+            vm.isPinned.toggle()
+            avm.pinTransaction()
         }
     }
 }
@@ -64,8 +64,8 @@ struct TransactionView: View {
 struct TransactionView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            TransactionView(vm: TransactionVM(ModelData.sampleTransactions[0]))
-            TransactionView(vm: TransactionVM(ModelData.sampleTransactions[1]))
+            TransactionView(vm: ModelData.sampleTransactions[0])
+            TransactionView(vm: ModelData.sampleTransactions[1])
         }
         .padding()
         .previewLayout(.sizeThatFits)

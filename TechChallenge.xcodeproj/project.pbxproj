@@ -26,10 +26,7 @@
 		3CE226C126B062BA00B3D085 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE226C026B062BA00B3D085 /* Double.swift */; };
 		3CE226C726B2E41E00B3D085 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE226C626B2E41E00B3D085 /* InsightsView.swift */; };
 		55234D0F27B60A9B000BAF10 /* AllTransactionsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55234D0E27B60A9B000BAF10 /* AllTransactionsVM.swift */; };
-		55234D1127B60E44000BAF10 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55234D1027B60E44000BAF10 /* Constants.swift */; };
 		55234D1327B67674000BAF10 /* TransactionTotalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55234D1227B67674000BAF10 /* TransactionTotalsView.swift */; };
-		55234D1527B749DC000BAF10 /* TransactionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55234D1427B749DC000BAF10 /* TransactionVM.swift */; };
-		556AB2AA27B5EF22001CB1D2 /* ExpenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AB2A927B5EF22001CB1D2 /* ExpenseModel.swift */; };
 		556AB2AC27B5F020001CB1D2 /* CategorySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AB2AB27B5F020001CB1D2 /* CategorySelectionView.swift */; };
 		556AB2AE27B6084A001CB1D2 /* DimmingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556AB2AD27B6084A001CB1D2 /* DimmingButton.swift */; };
 /* End PBXBuildFile section */
@@ -68,10 +65,7 @@
 		3CE226C026B062BA00B3D085 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		3CE226C626B2E41E00B3D085 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		55234D0E27B60A9B000BAF10 /* AllTransactionsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTransactionsVM.swift; sourceTree = "<group>"; };
-		55234D1027B60E44000BAF10 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		55234D1227B67674000BAF10 /* TransactionTotalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTotalsView.swift; sourceTree = "<group>"; };
-		55234D1427B749DC000BAF10 /* TransactionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVM.swift; sourceTree = "<group>"; };
-		556AB2A927B5EF22001CB1D2 /* ExpenseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseModel.swift; sourceTree = "<group>"; };
 		556AB2AB27B5F020001CB1D2 /* CategorySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionView.swift; sourceTree = "<group>"; };
 		556AB2AD27B6084A001CB1D2 /* DimmingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,9 +166,6 @@
 				3CE226AE26B03CBA00B3D085 /* TransactionModel.swift */,
 				3C3FCAAC26C57A7D0092AB11 /* TransactionModel+UI.swift */,
 				55234D0E27B60A9B000BAF10 /* AllTransactionsVM.swift */,
-				55234D1427B749DC000BAF10 /* TransactionVM.swift */,
-				556AB2A927B5EF22001CB1D2 /* ExpenseModel.swift */,
-				55234D1027B60E44000BAF10 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,12 +309,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CE01C6226B2E59C0091B7BA /* RingView.swift in Sources */,
-				55234D1127B60E44000BAF10 /* Constants.swift in Sources */,
-				55234D1527B749DC000BAF10 /* TransactionVM.swift in Sources */,
 				55234D0F27B60A9B000BAF10 /* AllTransactionsVM.swift in Sources */,
 				3CE226C126B062BA00B3D085 /* Double.swift in Sources */,
 				3CE226AF26B03CBA00B3D085 /* TransactionModel.swift in Sources */,
-				556AB2AA27B5EF22001CB1D2 /* ExpenseModel.swift in Sources */,
 				3CE01C6426B2EBDE0091B7BA /* Color.swift in Sources */,
 				556AB2AE27B6084A001CB1D2 /* DimmingButton.swift in Sources */,
 				3CE226BB26B0573C00B3D085 /* Date.swift in Sources */,
@@ -517,7 +505,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TechChallenge/Preview Content\"";
-				DEVELOPMENT_TEAM = WDVRK9UE68;
+				DEVELOPMENT_TEAM = 9UHF7ZF99A;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TechChallenge/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -539,7 +527,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TechChallenge/Preview Content\"";
-				DEVELOPMENT_TEAM = WDVRK9UE68;
+				DEVELOPMENT_TEAM = 9UHF7ZF99A;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TechChallenge/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct DimmingButton: ButtonStyle {
-    let category: String
+    let category: TransactionModel.Category
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
             .frame(maxHeight: 36)
-            .background(ExpenseModel.backgroundColor(category))
+            .background(category.color)
             .opacity(configuration.isPressed ? 0.3 : 1.0)
             .foregroundColor(.white)
             .font(Font.system(.title2).bold())

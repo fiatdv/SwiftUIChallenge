@@ -14,8 +14,8 @@ struct CategorySelectionView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHGrid(rows: gridItems, spacing: 12) {
-                ForEach(ExpenseModel.categories, id: \.self) { category in
-                    Button(category) {
+                ForEach(TransactionModel.Category.allCases, id: \.self) { category in
+                    Button(category.rawValue) {
                         avm.categorySelected = category
                     }
                     .buttonStyle(DimmingButton(category: category))
