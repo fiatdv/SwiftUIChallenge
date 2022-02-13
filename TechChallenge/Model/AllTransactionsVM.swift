@@ -35,6 +35,7 @@ class AllTransactionsVM: ObservableObject {
         calcTotalPriceForCategorySelected()
     }
 
+    // For test purposes only: testUnpinnedTransactionsTotalByCategory
     func pinTransaction(id: Int, isPinned: Bool) {
         let trx = ModelData.sampleTransactions.first(where: { id == $0.id })
         trx?.isPinned = isPinned

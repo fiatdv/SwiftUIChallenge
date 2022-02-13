@@ -99,3 +99,25 @@ extension TransactionModel.Category {
         return TransactionModel.Category.allCases[index]
     }
 }
+
+// MARK: - Support for getting transactions
+extension TransactionModel.Category {
+    
+    func getAllTransactions() -> [TransactionModel] {
+        if self == .all {
+            return ModelData.sampleTransactions
+        }
+        return ModelData.sampleTransactions.filter {
+            $0.category == self
+        }
+    }
+
+    func getAllPinnedTransactions() -> [TransactionModel] {
+        if self == .all {
+            return ModelData.sampleTransactions.filter { $0.isPinned }
+        }
+        return ModelData.sampleTransactions.filter {
+            $0.category == self && $0.isPinned
+        }
+    }
+}
